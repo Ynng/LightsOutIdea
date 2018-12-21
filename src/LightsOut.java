@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class LightsOut {
 
@@ -11,11 +12,11 @@ public class LightsOut {
             @Override
             public void run() {
                 JFrame frame = new JFrame("Lights Out");
+                frame.setLayout(new BorderLayout());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setResizable(false);
                 frame.setSize(TILE_SIZE * GAME_SIZE, TILE_SIZE * GAME_SIZE);
                 frame.setVisible(true);
-
             }
         });
 
