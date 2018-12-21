@@ -7,15 +7,15 @@ public class MainFrame extends JFrame {
     private GamePanel panel;
 
 
-    public MainFrame(int tile, int grid) {
+    public MainFrame() {
         super("Lights Out");
         setLayout(new BorderLayout());
         setResizable(false);
 
-        panel = new GamePanel(tile, grid);
+        panel = new GamePanel(LightsOut.TILE_SIZE, LightsOut.TILE_SIZE);
         add(panel, BorderLayout.CENTER);
 
-        setSize(tile * grid, tile * grid);
+        setSize(LightsOut.TILE_SIZE * LightsOut.GRID_SIZE, LightsOut.TILE_SIZE * LightsOut.GRID_SIZE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
