@@ -6,6 +6,7 @@ public class MainFrame extends JFrame {
     static private int GAME_SIZE = 5;
 
     private JTextArea text;
+    private GamePanel panel;
 
 
     public MainFrame() {
@@ -13,8 +14,9 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
         setResizable(false);
 
+        panel = new GamePanel();
         text = new JTextArea();
-        add(text, BorderLayout.CENTER);
+        add(panel, BorderLayout.CENTER);
 
         setSize(TILE_SIZE * GAME_SIZE, TILE_SIZE * GAME_SIZE);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
