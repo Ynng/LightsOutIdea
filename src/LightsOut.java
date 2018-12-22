@@ -9,7 +9,8 @@ public class LightsOut {
     static int TILE_MARGIN = 20;
     //the thickness of the border of a tile, if a border is needed.
     static int TILE_BORDER = 5;
-
+    //It's a joke
+    static boolean HAS_THE_WORLD_ENDED_YET = false;
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(new Runnable() {
