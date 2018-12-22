@@ -6,21 +6,24 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Debug (Launch)",
+            "name": "CodeLens (Launch) - LightsOut",
             "request": "launch",
-            "mainClass": ""
+            "mainClass": "LightsOut",
+            "projectName": "LightsOutIdea_14f96c49"
         },
         {
             "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "projectName": "LightsOutIdea"
         },
         {
             "type": "java",
             "name": "Debug (Launch)-LightsOut",
             "request": "launch",
-            "mainClass": "LightsOut"
+            "mainClass": "LightsOut",
+            "projectName": "LightsOutIdea"
         }
     ]
 }

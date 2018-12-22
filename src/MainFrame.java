@@ -1,10 +1,12 @@
 import javax.swing.*;
+import javax.tools.Tool;
+
 import java.awt.*;
 
 public class MainFrame extends JFrame {
 
-    private GamePanel panel;
-
+    public GamePanel panel;
+    public ToolBar toolBar;
     public MainFrame() {
         super("Lights Out");
         setLayout(new BorderLayout());
@@ -12,6 +14,8 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
+        toolBar = new ToolBar();
+        add(toolBar, BorderLayout.PAGE_END);
         panel = new GamePanel();
         add(panel, BorderLayout.CENTER);
 
@@ -19,4 +23,6 @@ public class MainFrame extends JFrame {
         pack();
         setVisible(true);
     }
+
+    
 }
