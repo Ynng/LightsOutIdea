@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements MouseListener {
         //Prints the answer to the random generated level
         printBools(lightsClicked);
         minimumSteps = countBools(lightsClicked);
-        System.out.println("It will take at least: " + countBools(lightsClicked) + " steps to complete");
+        System.out.println("It will take at least: " + minimumSteps + " steps to complete");
 
     }
 
@@ -152,7 +152,7 @@ public class GamePanel extends JPanel implements MouseListener {
 		System.out.println("You Win!");
 		System.out.println("You took: " + stepCounter + " steps");
         
-        System.out.println("You took: " +  minimumSteps + " extra steps");
+        System.out.println("You took: " +  (stepCounter - minimumSteps) + " extra steps");
         
         System.out.print('\n');
         // displaySolution();
