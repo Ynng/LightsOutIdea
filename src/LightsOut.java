@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class LightsOut extends JFrame {
+public class LightsOut {
     // size of every tile, including the margin
     static int TILE_SIZE = 100;
     // the size of the grid used in the game
