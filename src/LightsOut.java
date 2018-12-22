@@ -11,7 +11,7 @@ public class LightsOut {
     static int TILE_BORDER = 5;
     // the number of tiles turned on at the start
     static int STARTING_TILE = GRID_SIZE*GRID_SIZE/2;
-    // TO display information that's bad for the gameplay but good for debugging
+    // To display information that's bad for the gameplay but good for debugging
     static boolean DEBUG_MODE=false;
 
     static int randomRange(int min, int max) {
