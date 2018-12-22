@@ -18,13 +18,13 @@ public class GamePanel extends JPanel {
         setBackground(Color.PINK);
 
         // initialize the two arrays
-        lights = new boolean[5][5];
-        lightsClicked = new boolean[5][5];
+        lights = new boolean[LightsOut.GRID_SIZE][LightsOut.GRID_SIZE];
+        lightsClicked = new boolean[LightsOut.GRID_SIZE][LightsOut.GRID_SIZE];
 
         // randomly turn on 10 lights
         while (true) {
-            int x = LightsOut.randomRange(0, 4);
-            int y = LightsOut.randomRange(0, 4);
+            int x = LightsOut.randomRange(0, LightsOut.GRID_SIZE-1);
+            int y = LightsOut.randomRange(0, LightsOut.GRID_SIZE-1);
             lightsClicked[x][y] = !lightsClicked[x][y];
             // System.out.println((x + 1) + " " + (y + 1) + "\n");
             toggle(lights, x, y);
@@ -64,7 +64,7 @@ public class GamePanel extends JPanel {
             input[row - 1][col] = !input[row - 1][col];
 
         }
-        if (row + 1 <= 4) {
+        if (row + 1 <= LightsOut.GRID_SIZE-1) {
             input[row + 1][col] = !input[row + 1][col];
 
         }
@@ -72,7 +72,7 @@ public class GamePanel extends JPanel {
             input[row][col - 1] = !input[row][col - 1];
 
         }
-        if (col + 1 <= 4) {
+        if (col + 1 <= LightsOut.GRID_SIZE-1) {
             input[row][col + 1] = !input[row][col + 1];
 
         }
