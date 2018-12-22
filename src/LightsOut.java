@@ -6,7 +6,7 @@ public class LightsOut {
     //the size of the grid used in the game
     static int GRID_SIZE = 5;
     //the distance between evry tile
-    static int TILE_MARGIN = 20;
+    static int TILE_MARGIN = 15;
     //the thickness of the border of a tile, if a border is needed.
     static int TILE_BORDER = 5;
     //It's a joke
