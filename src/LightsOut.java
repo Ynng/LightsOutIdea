@@ -1,9 +1,13 @@
 import javax.swing.*;
 
 public class LightsOut {
+    //size of every tile, including the margin
     static int TILE_SIZE = 100;
+    //the size of the grid used in the game
     static int GRID_SIZE = 5;
-    static int TILE_MARGIN = 10;
+    //the distance between evry tile
+    static int TILE_MARGIN = 20;
+    //the thickness of the border of a tile, if a border is needed.
     static int TILE_BORDER = 5;
 
     public static void main(String[] args) {
