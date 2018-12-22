@@ -16,7 +16,7 @@ public class ToolBar extends JPanel {
         mainOutput = new JLabel();
         mainOutput.setForeground(Color.WHITE);
         mainOutput.setMinimumSize(new Dimension(LightsOut.TILE_SIZE, LightsOut.TILE_SIZE));
-        mainOutput.setFont(new Font("Sans-Serif", Font.PLAIN, 24));
+        mainOutput.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
         
         add(mainOutput, BorderLayout.WEST);
     }

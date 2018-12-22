@@ -156,7 +156,7 @@ public class GamePanel extends JPanel implements MouseListener {
     public void gameOver() {
         // display ending messages
         if(stepCounter==minimumSteps)
-        toolbar.mainOutput.setText("You won using the least amount of steps ppossible!");
+        toolbar.mainOutput.setText("You won using the least amount of steps possible!");
         else{
             toolbar.mainOutput.setText("You won by taking "+ (stepCounter - minimumSteps)+" extra steps");
             // System.out.println("You Win!");
