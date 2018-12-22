@@ -5,12 +5,14 @@ public class LightsOut {
     static int TILE_SIZE = 100;
     // the size of the grid used in the game
     static int GRID_SIZE = 5;
-    // the distance between evry tile
+    // the distance between every tile
     static int TILE_MARGIN = 15;
     // the thickness of the border of a tile, if a border is needed.
     static int TILE_BORDER = 5;
-    // It's a joke
-    static boolean HAS_THE_WORLD_ENDED_YET = true;
+    // the number of tiles turned on at the start
+    static int STARTING_TILE = GRID_SIZE*GRID_SIZE/2;
+    // TO display information that's bad for the gameplay but good for debugging
+    static boolean DEBUG_MODE=false;
 
     static int randomRange(int min, int max) {
         int range = (max - min) + 1;

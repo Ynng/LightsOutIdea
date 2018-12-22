@@ -26,16 +26,17 @@ public class GamePanel extends JPanel implements MouseListener {
         lightsClicked = new boolean[LightsOut.GRID_SIZE][LightsOut.GRID_SIZE];
         addMouseListener(this);
 
-        // randomly turn on 10 lights
+        // randomly turn on half of the lights
         while (true) {
             int row = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
             int col = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
             lightsClicked[row][col] = !lightsClicked[row][col];
-            // System.out.println((x + 1) + " " + (y + 1) + "\n");
             toggle(lights, row, col);
-            if (countBools(lights) == 10)
+            //System.out.println((row + 1) + " " + (col + 1) + "\n");
+            if (countBools(lightsClicked) == LightsOut.STARTING_TILE)
                 break;
         }
+        //Prints the answer to the random generated level
         printBools(lightsClicked);
         minimumSteps = countBools(lightsClicked);
         System.out.println("It will take at least: " + countBools(lightsClicked) + " steps to complete");
@@ -93,7 +94,7 @@ public class GamePanel extends JPanel implements MouseListener {
         for (int row = 0; row < LightsOut.GRID_SIZE; row++) {
             int x = LightsOut.TILE_MARGIN / 2;
             for (int col = 0; col < LightsOut.GRID_SIZE; col++) {
-                if (lightsClicked[row][col]) {
+                if (lightsClicked[row][col]&&LightsOut.DEBUG_MODE) {
                     // drawing the border
                     g2.setColor(Color.GREEN);
                     g2.fillRect(x, y, TILE_SIZE_WITH_MARGIN, TILE_SIZE_WITH_MARGIN);
