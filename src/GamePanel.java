@@ -9,13 +9,15 @@ public class GamePanel extends JPanel implements MouseListener {
     static int GAME_DIMENSION = LightsOut.TILE_SIZE * LightsOut.GRID_SIZE;
 
     // 2d arrays for storing the light states
-    private boolean[][] lights;
-    private boolean[][] lightsClicked;
+    public boolean[][] lights;
+    public boolean[][] lightsClicked;
     // stepp counter to record the number of steps the user have taken
-    private int stepCounter = 0;
-    private int minimumSteps = 0;
+    private int stepCounter;
+    private int minimumSteps;
+    private ToolBar toolbar;
 
-    public GamePanel() {
+    public GamePanel(ToolBar toolbar) {
+        this.toolbar = toolbar;
         setPreferredSize(new Dimension(GAME_DIMENSION, GAME_DIMENSION));
         setBackground(Color.PINK);
 
@@ -23,8 +25,14 @@ public class GamePanel extends JPanel implements MouseListener {
         lights = new boolean[LightsOut.GRID_SIZE][LightsOut.GRID_SIZE];
         lightsClicked = new boolean[LightsOut.GRID_SIZE][LightsOut.GRID_SIZE];
         addMouseListener(this);
+        initialize();
 
+    }
+
+    public void initialize() {
         // randomly turn on half of the lights
+        stepCounter = 0;
+        minimumSteps = 0;
         while (true) {
             int row = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
             int col = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
@@ -38,7 +46,6 @@ public class GamePanel extends JPanel implements MouseListener {
         printBools(lightsClicked);
         minimumSteps = countBools(lightsClicked);
         System.out.println("It will take at least: " + minimumSteps + " steps to complete");
-
     }
 
     public void printBools(boolean[][] input) {
@@ -134,29 +141,36 @@ public class GamePanel extends JPanel implements MouseListener {
         int col = mouseX / boxWidth;
         int row = mouseY / boxHeight;
 
+        stepCounter++;
         toggle(lights, row, col);
         lightsClicked[row][col] = !lightsClicked[row][col];
-        repaint();
-        stepCounter++;
+        toolbar.mainOutput.setText("You took: " + stepCounter + "/" + minimumSteps + "Steps");
         if (0 == countBools(lights)) {
-            LightsOut.gameOver(stepCounter, minimumSteps);
-        } else{
+            gameOver();
+        } else {
             System.out.println("You already took: " + stepCounter + " steps");
         }
+        repaint();
     }
 
-    // public void endGame() {
-    // // display ending messages
-    // System.out.println("You Win!");
-    // System.out.println("You took: " + stepCounter + " steps");
+    public void gameOver() {
+        // display ending messages
+        if(stepCounter==minimumSteps)
+        toolbar.mainOutput.setText("You won using the least amount of steps ppossible!");
+        else{
+            toolbar.mainOutput.setText("You won by taking "+ (stepCounter - minimumSteps)+" extra steps");
+            // System.out.println("You Win!");
+            // System.out.println("You took: " + stepCounter + " steps");
+    
+            // System.out.println("You took: " + (stepCounter - minimumSteps) + );
+        }
 
-    // System.out.println("You took: " + (stepCounter - minimumSteps) + " extra
-    // steps");
-
-    // System.out.print('\n');
-    // // displaySolution();
-    // System.exit(0);
-    // }
+        System.out.print('\n');
+        System.out.println("Restarting Game");
+        initialize();
+        // displaySolution();
+        // System.exit(0);
+    }
 
     // Useless junk
     @Override

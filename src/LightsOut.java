@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class LightsOut extends JFrame{
+public class LightsOut extends JFrame {
     // size of every tile, including the margin
     static int TILE_SIZE = 100;
     // the size of the grid used in the game
@@ -21,28 +21,17 @@ public class LightsOut extends JFrame{
 
     public static void main(String[] args) {
 
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-        new LightsOut();
-//            }
-//        });
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new LightsOut();
+            }
+        });
 
     }
 
-    public LightsOut(){
+    public LightsOut() {
         new MainFrame();
-    }
-
-    public static void gameOver(int step, int minimumStep) {
-        System.out.println("You Win!");
-        System.out.println("You took: " + step + " steps");
-
-        System.out.println("You took: " + (step - minimumStep) + " extra steps");
-
-        System.out.print('\n');
-        System.out.print("Restarting the game");
-
     }
 
 }

@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
 
         toolBar = new ToolBar();
         add(toolBar, BorderLayout.PAGE_END);
-        panel = new GamePanel();
+        panel = new GamePanel(toolBar);
         add(panel, BorderLayout.CENTER);
 
         // setSize(LightsOut.TILE_SIZE * LightsOut.GRID_SIZE, LightsOut.TILE_SIZE * LightsOut.GRID_SIZE);
