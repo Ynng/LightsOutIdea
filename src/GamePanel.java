@@ -1,10 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements MouseListener {
     static int TILE_SIZE_WITH_BORDER = LightsOut.TILE_SIZE - LightsOut.TILE_MARGIN - LightsOut.TILE_BORDER * 2;
     static int TILE_SIZE_WITH_MARGIN = LightsOut.TILE_SIZE - LightsOut.TILE_MARGIN;
+    static int GAME_DIMENSION = LightsOut.TILE_SIZE * LightsOut.GRID_SIZE;
 
     // 2d arrays for storing the light states
     private boolean[][] lights;
@@ -12,19 +15,22 @@ public class GamePanel extends JPanel {
     // stepp counter to record the number of steps the user have taken
     public int stepCounter = 0;
 
+
     public GamePanel() {
-        setPreferredSize(
-                new Dimension(LightsOut.TILE_SIZE * LightsOut.GRID_SIZE, LightsOut.TILE_SIZE * LightsOut.GRID_SIZE));
+
+        setPreferredSize(new Dimension(GAME_DIMENSION, GAME_DIMENSION));
         setBackground(Color.PINK);
 
         // initialize the two arrays
         lights = new boolean[LightsOut.GRID_SIZE][LightsOut.GRID_SIZE];
         lightsClicked = new boolean[LightsOut.GRID_SIZE][LightsOut.GRID_SIZE];
+        addMouseListener(this);
+
 
         // randomly turn on 10 lights
         while (true) {
-            int x = LightsOut.randomRange(0, LightsOut.GRID_SIZE-1);
-            int y = LightsOut.randomRange(0, LightsOut.GRID_SIZE-1);
+            int x = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
+            int y = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
             lightsClicked[x][y] = !lightsClicked[x][y];
             // System.out.println((x + 1) + " " + (y + 1) + "\n");
             toggle(lights, x, y);
@@ -64,7 +70,7 @@ public class GamePanel extends JPanel {
             input[row - 1][col] = !input[row - 1][col];
 
         }
-        if (row + 1 <= LightsOut.GRID_SIZE-1) {
+        if (row + 1 <= LightsOut.GRID_SIZE - 1) {
             input[row + 1][col] = !input[row + 1][col];
 
         }
@@ -72,7 +78,7 @@ public class GamePanel extends JPanel {
             input[row][col - 1] = !input[row][col - 1];
 
         }
-        if (col + 1 <= LightsOut.GRID_SIZE-1) {
+        if (col + 1 <= LightsOut.GRID_SIZE - 1) {
             input[row][col + 1] = !input[row][col + 1];
 
         }
@@ -113,5 +119,45 @@ public class GamePanel extends JPanel {
             }
             y += LightsOut.TILE_SIZE;
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        int mouseX = e.getX();
+        int mouseY = e.getY();
+
+        int panelWidth = getWidth();
+        int panelHeight = getHeight();
+
+        int boxWidth = panelWidth / lights[0].length;
+        int boxHeight = panelHeight / lights.length;
+
+        int x = mouseX / boxWidth;
+        int y = mouseY / boxHeight;
+
+        toggle(lights, y, x);
+        repaint();
+        stepCounter++;
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }
