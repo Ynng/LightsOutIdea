@@ -15,7 +15,6 @@ public class GamePanel extends JPanel implements MouseListener {
     // stepp counter to record the number of steps the user have taken
     public int stepCounter = 0;
 
-
     public GamePanel() {
 
         setPreferredSize(new Dimension(GAME_DIMENSION, GAME_DIMENSION));
@@ -26,14 +25,13 @@ public class GamePanel extends JPanel implements MouseListener {
         lightsClicked = new boolean[LightsOut.GRID_SIZE][LightsOut.GRID_SIZE];
         addMouseListener(this);
 
-
         // randomly turn on 10 lights
         while (true) {
-            int x = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
-            int y = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
-            lightsClicked[x][y] = !lightsClicked[x][y];
+            int row = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
+            int col = LightsOut.randomRange(0, LightsOut.GRID_SIZE - 1);
+            lightsClicked[row][col] = !lightsClicked[row][col];
             // System.out.println((x + 1) + " " + (y + 1) + "\n");
-            toggle(lights, x, y);
+            toggle(lights, row, col);
             if (countBools(lights) == 10)
                 break;
         }
@@ -90,16 +88,15 @@ public class GamePanel extends JPanel implements MouseListener {
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent(g);
         int y = LightsOut.TILE_MARGIN / 2;
-        for (int i = 0; i < LightsOut.GRID_SIZE; i++) {
+        for (int row = 0; row < LightsOut.GRID_SIZE; row++) {
             int x = LightsOut.TILE_MARGIN / 2;
-            for (int j = 0; j < LightsOut.GRID_SIZE; j++) {
-                if (lightsClicked[i][j]) {
-
+            for (int col = 0; col < LightsOut.GRID_SIZE; col++) {
+                if (lightsClicked[row][col]) {
                     // drawing the border
                     g2.setColor(Color.GREEN);
                     g2.fillRect(x, y, TILE_SIZE_WITH_MARGIN, TILE_SIZE_WITH_MARGIN);
                     // drawing the actuall tile
-                    if (lights[i][j])
+                    if (lights[row][col])
                         g2.setColor(Color.WHITE);
                     else
                         g2.setColor(Color.BLACK);
@@ -108,7 +105,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
                 } else {
                     // drawing the actuall tiles
-                    if (lights[i][j])
+                    if (lights[row][col])
                         g2.setColor(Color.WHITE);
                     else
                         g2.setColor(Color.BLACK);
@@ -122,14 +119,10 @@ public class GamePanel extends JPanel implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
     public void mousePressed(MouseEvent e) {
         int mouseX = e.getX();
         int mouseY = e.getY();
+        System.out.println("Mouse X: "+mouseX+" Mouse Y: "+ mouseY);
 
         int panelWidth = getWidth();
         int panelHeight = getHeight();
@@ -137,12 +130,18 @@ public class GamePanel extends JPanel implements MouseListener {
         int boxWidth = panelWidth / lights[0].length;
         int boxHeight = panelHeight / lights.length;
 
-        int x = mouseX / boxWidth;
-        int y = mouseY / boxHeight;
+        int col = mouseX / boxWidth;
+        int row = mouseY / boxHeight;
 
-        toggle(lights, y, x);
+        toggle(lights, row, col);
         repaint();
         stepCounter++;
+
+    }
+
+    // Useless junk
+    @Override
+    public void mouseClicked(MouseEvent e) {
 
     }
 
