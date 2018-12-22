@@ -16,6 +16,49 @@ public class GamePanel extends JPanel implements MouseListener {
     private int minimumSteps;
     private ToolBar toolbar;
 
+    public static void printBools(boolean[][] input) {
+        for (boolean[] list : input) {
+            for (boolean light : list) {
+                System.out.print((light ? "1" : "0") + " ");
+            }
+            System.out.print('\n');
+        }
+    }
+
+    public static int countBools(boolean[][] input) {
+        int count = 0;
+        for (boolean[] list : input) {
+            for (boolean item : list) {
+                if (item) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public static void toggle(boolean[][] input, int row, int col) {
+
+        input[row][col] = !input[row][col];
+        if (row - 1 >= 0) {
+            input[row - 1][col] = !input[row - 1][col];
+
+        }
+        if (row + 1 <= LightsOut.GRID_SIZE - 1) {
+            input[row + 1][col] = !input[row + 1][col];
+
+        }
+        if (col - 1 >= 0) {
+            input[row][col - 1] = !input[row][col - 1];
+
+        }
+        if (col + 1 <= LightsOut.GRID_SIZE - 1) {
+            input[row][col + 1] = !input[row][col + 1];
+
+        }
+
+    }
+
     public GamePanel(ToolBar toolbar) {
         this.toolbar = toolbar;
         setPreferredSize(new Dimension(GAME_DIMENSION, GAME_DIMENSION));
@@ -46,50 +89,11 @@ public class GamePanel extends JPanel implements MouseListener {
         printBools(lightsClicked);
         minimumSteps = countBools(lightsClicked);
         System.out.println("It will take at least: " + minimumSteps + " steps to complete");
+        toolbar.mainOutput.setText("This game will take you at least "
+        + minimumSteps + " steps");
     }
 
-    public void printBools(boolean[][] input) {
-        for (boolean[] list : input) {
-            for (boolean light : list) {
-                System.out.print((light ? "1" : "0") + " ");
-            }
-            System.out.print('\n');
-        }
-    }
-
-    public int countBools(boolean[][] input) {
-        int count = 0;
-        for (boolean[] list : input) {
-            for (boolean item : list) {
-                if (item) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
-
-    public void toggle(boolean[][] input, int row, int col) {
-
-        input[row][col] = !input[row][col];
-        if (row - 1 >= 0) {
-            input[row - 1][col] = !input[row - 1][col];
-
-        }
-        if (row + 1 <= LightsOut.GRID_SIZE - 1) {
-            input[row + 1][col] = !input[row + 1][col];
-
-        }
-        if (col - 1 >= 0) {
-            input[row][col - 1] = !input[row][col - 1];
-
-        }
-        if (col + 1 <= LightsOut.GRID_SIZE - 1) {
-            input[row][col + 1] = !input[row][col + 1];
-
-        }
-
-    }
+    
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -144,24 +148,27 @@ public class GamePanel extends JPanel implements MouseListener {
         stepCounter++;
         toggle(lights, row, col);
         lightsClicked[row][col] = !lightsClicked[row][col];
-        toolbar.mainOutput.setText("You took: " + stepCounter + "/" + minimumSteps + "Steps");
+        
         if (0 == countBools(lights)) {
             gameOver();
         } else {
-            System.out.println("You already took: " + stepCounter + " steps");
+            toolbar.mainOutput.setText("<html>You already took " + stepCounter + " Steps<br> It's possible to finish this game in only "
+        + minimumSteps + " steps! </html>");
         }
         repaint();
     }
 
     public void gameOver() {
         // display ending messages
-        if(stepCounter==minimumSteps)
-            toolbar.mainOutput.setText("<html>You won using the least amount of steps possible!<br>That's only " + minimumSteps + " steps! </html>");
-        else{
-            toolbar.mainOutput.setText("You won by taking "+ (stepCounter - minimumSteps)+" extra steps");
+        if (stepCounter == minimumSteps)
+            toolbar.mainOutput.setText("<html>You won using the least amount of steps possible!<br>That's only "
+                    + minimumSteps + " steps! </html>");
+        else {
+            toolbar.mainOutput.setText("<html>You won by only taking " + stepCounter + " steps!<br>That's only "
+            + (stepCounter - minimumSteps) + " extra steps! </html>");
             // System.out.println("You Win!");
             // System.out.println("You took: " + stepCounter + " steps");
-    
+
             // System.out.println("You took: " + (stepCounter - minimumSteps) + );
         }
 

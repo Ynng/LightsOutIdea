@@ -7,11 +7,11 @@ public class ToolBar extends JPanel {
     public JLabel mainOutput;
     public ToolBar() {
         setPreferredSize(new Dimension(GAME_DIMENSION, LightsOut.TILE_SIZE));
-        setBackground(Color.BLUE);
+        setBackground(Color.WHITE);
         setLayout(new BorderLayout());
         //Setting up the step counter
         mainOutput = new JLabel();
-        mainOutput.setForeground(Color.WHITE);
+        mainOutput.setForeground(Color.BLACK);
         mainOutput.setMinimumSize(new Dimension(LightsOut.TILE_SIZE, LightsOut.TILE_SIZE));
         mainOutput.setFont(new Font("Sans-Serif", Font.PLAIN, 18));
         

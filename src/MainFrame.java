@@ -11,16 +11,16 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
+        
+        
         toolBar = new ToolBar();
         add(toolBar, BorderLayout.PAGE_END);
         panel = new GamePanel(toolBar);
         add(panel, BorderLayout.CENTER);
-
+        setVisible(true);
+        
         // setSize(LightsOut.TILE_SIZE * LightsOut.GRID_SIZE, LightsOut.TILE_SIZE * LightsOut.GRID_SIZE);
         pack();
-        setVisible(true);
     }
 
     
