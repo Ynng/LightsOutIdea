@@ -11,10 +11,9 @@ public class GamePanel extends JPanel implements MouseListener {
     // 2d arrays for storing the light states
     public boolean[][] lights;
     public boolean[][] lightsClicked;
-    // stepp counter to record the number of steps the user have taken
+    // step counter to record the number of steps the user have taken
     private int stepCounter;
     private int minimumSteps;
-    private ToolBar toolbar;
 
     public static void printBools(boolean[][] input) {
         for (boolean[] list : input) {
@@ -59,8 +58,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
     }
 
-    public GamePanel(ToolBar toolbar) {
-        this.toolbar = toolbar;
+    public GamePanel() {
         setPreferredSize(new Dimension(GAME_DIMENSION, GAME_DIMENSION));
         setBackground(Color.PINK);
 
@@ -88,8 +86,8 @@ public class GamePanel extends JPanel implements MouseListener {
         // Prints the answer to the random generated level
         printBools(lightsClicked);
         minimumSteps = countBools(lightsClicked);
-        System.out.println("It will take at least: " + minimumSteps + " steps to complete");
-        toolbar.mainOutput.setText("This game will take you at least " + minimumSteps + " steps");
+        //System.out.println("It will take at least: " + minimumSteps + " steps to complete");
+        //MainFrame.statusPanel.mainOutput.setText("This game will take you at least " + minimumSteps + " steps");
     }
 
     @Override
@@ -131,7 +129,7 @@ public class GamePanel extends JPanel implements MouseListener {
     public void mousePressed(MouseEvent e) {
         int mouseX = e.getX();
         int mouseY = e.getY();
-        System.out.println("Mouse X: " + mouseX + " Mouse Y: " + mouseY);
+        //System.out.println("Mouse X: " + mouseX + " Mouse Y: " + mouseY);
 
         int panelWidth = getWidth();
         int panelHeight = getHeight();
@@ -149,7 +147,7 @@ public class GamePanel extends JPanel implements MouseListener {
         if (0 == countBools(lights)) {
             gameOver();
         } else {
-            toolbar.mainOutput.setText("<html>You already took " + stepCounter
+            MainFrame.statusPanel.mainOutput.setText("<html>You already took " + stepCounter
                     + " Steps<br> It's possible to finish this game in only " + minimumSteps + " steps! </html>");
         }
         repaint();
@@ -158,10 +156,10 @@ public class GamePanel extends JPanel implements MouseListener {
     public void gameOver() {
         // display ending messages
         if (stepCounter == minimumSteps)
-            toolbar.mainOutput.setText("<html>You won using the least amount of steps possible!<br>That's only "
+            MainFrame.statusPanel.mainOutput.setText("<html>You won using the least amount of steps possible!<br>That's only "
                     + minimumSteps + " steps! </html>");
         else {
-            toolbar.mainOutput.setText("<html>You won by only taking " + stepCounter + " steps!<br>That's only "
+            MainFrame.statusPanel.mainOutput.setText("<html>You won by only taking " + stepCounter + " steps!<br>That's only "
                     + (stepCounter - minimumSteps) + " extra steps! </html>");
             // System.out.println("You Win!");
             // System.out.println("You took: " + stepCounter + " steps");
@@ -196,4 +194,12 @@ public class GamePanel extends JPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    // public int getStepCounter(){
+    //     return this.stepCounter;
+    // }
+
+    // public void setStepCounter(int stepCounter){
+    //     this.stepCounter = stepCounter;
+    // }
 }
