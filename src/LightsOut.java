@@ -2,17 +2,17 @@ import javax.swing.*;
 
 public class LightsOut {
     // size of every tile, including the margin
-    static int TILE_SIZE = 100;
+    static int tileSize = 100;
     // the size of the grid used in the game
-    static int GRID_SIZE = 5;
+    static int gridSize = 5;
     // the distance between every tile
-    static int TILE_MARGIN = 15;
+    static int tileMargin = 15;
     // the thickness of the border of a tile, if a border is needed.
-    static int TILE_BORDER = 5;
+    static int tileBorder = 5;
     // the number of tiles turned on at the start
-    static int STARTING_TILE = GRID_SIZE * GRID_SIZE / 2;
+    static int startingTile = gridSize * gridSize / 2;
     // To display information that's bad for the gameplay but good for debugging
-    static boolean DEBUG_MODE = true;
+    static boolean debugMode = true;
 
     static int randomRange(int min, int max) {
         int range = (max - min) + 1;

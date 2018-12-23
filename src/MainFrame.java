@@ -19,8 +19,8 @@ public class MainFrame extends JFrame {
         add(panel, BorderLayout.CENTER);
         setVisible(true);
 
-        // setSize(LightsOut.TILE_SIZE * LightsOut.GRID_SIZE, LightsOut.TILE_SIZE *
-        // LightsOut.GRID_SIZE);
+        // setSize(LightsOut.tileSize * LightsOut.gridSize, LightsOut.tileSize *
+        // LightsOut.gridSize);
         pack();
     }
 
