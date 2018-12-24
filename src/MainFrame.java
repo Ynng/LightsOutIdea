@@ -6,6 +6,7 @@ public class MainFrame extends JFrame {
 
     public static GamePanel panel;
     public static StatusPanel statusPanel;
+    public static ToolBar toolbar;
 
     public MainFrame() {
         super("Lights Out");
@@ -13,6 +14,8 @@ public class MainFrame extends JFrame {
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        toolbar = new ToolBar();
+        add(toolbar, BorderLayout.PAGE_START);
         statusPanel = new StatusPanel();
         add(statusPanel, BorderLayout.PAGE_END);
         panel = new GamePanel();
