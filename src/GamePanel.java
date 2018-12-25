@@ -81,12 +81,13 @@ public class GamePanel extends JPanel implements MouseListener {
         minimumSteps = 0;
 
 
+
+        //Clearing the List for better 
         for (boolean[] list : lights) {
             for (boolean item : list) {
                 item = false;
             }
         }
-
         for (boolean[] list : lightsClicked) {
             for (boolean item : list) {
                 item = false;
