@@ -15,8 +15,9 @@ public class ToolBar extends JPanel {
         newGameButton.setBackground(new Color(59, 89, 182));
         newGameButton.setForeground(Color.WHITE);
         newGameButton.setFocusPainted(false);
-        newGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
+        newGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
         newGameButton.setPreferredSize(new Dimension(LightsOut.tileSize, LightsOut.tileSize/2));
+        newGameButton.setMargin(new Insets(0, 0, 0, 0));
         newGameButton.setAction(new AbstractAction("New Game"){
             @Override
             public void actionPerformed(ActionEvent e) {
