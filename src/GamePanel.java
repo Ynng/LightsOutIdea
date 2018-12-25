@@ -15,6 +15,11 @@ public class GamePanel extends JPanel implements MouseListener {
     private int stepCounter;
     private int minimumSteps;
 
+    static int randomRange(int min, int max) {
+        int range = (max - min) + 1;
+        return (int) (Math.random() * range) + min;
+    }
+
     public static void printBools(boolean[][] input) {
         for (boolean[] list : input) {
             for (boolean light : list) {
@@ -74,9 +79,22 @@ public class GamePanel extends JPanel implements MouseListener {
         // randomly turn on half of the lights
         stepCounter = 0;
         minimumSteps = 0;
+
+
+        for (boolean[] list : lights) {
+            for (boolean item : list) {
+                item = false;
+            }
+        }
+
+        for (boolean[] list : lightsClicked) {
+            for (boolean item : list) {
+                item = false;
+            }
+        }
         while (true) {
-            int row = LightsOut.randomRange(0, LightsOut.gridSize - 1);
-            int col = LightsOut.randomRange(0, LightsOut.gridSize - 1);
+            int row = randomRange(0, LightsOut.gridSize - 1);
+            int col = randomRange(0, LightsOut.gridSize - 1);
             lightsClicked[row][col] = !lightsClicked[row][col];
             toggle(lights, row, col);
             // System.out.println((row + 1) + " " + (col + 1) + "\n");
@@ -86,8 +104,10 @@ public class GamePanel extends JPanel implements MouseListener {
         // Prints the answer to the random generated level
         printBools(lightsClicked);
         minimumSteps = countBools(lightsClicked);
-        //System.out.println("It will take at least: " + minimumSteps + " steps to complete");
-        //MainFrame.statusPanel.mainOutput.setText("This game will take you at least " + minimumSteps + " steps");
+        // System.out.println("It will take at least: " + minimumSteps + " steps to
+        // complete");
+        // MainFrame.statusPanel.mainOutput.setText("This game will take you at least "
+        // + minimumSteps + " steps");
     }
 
     @Override
@@ -107,8 +127,7 @@ public class GamePanel extends JPanel implements MouseListener {
                         g2.setColor(Color.WHITE);
                     else
                         g2.setColor(Color.BLACK);
-                    g2.fillRect(x + LightsOut.tileBorder, y + LightsOut.tileBorder, borderedTileSize,
-                            borderedTileSize);
+                    g2.fillRect(x + LightsOut.tileBorder, y + LightsOut.tileBorder, borderedTileSize, borderedTileSize);
 
                 } else {
                     // drawing the actuall tiles
@@ -129,7 +148,7 @@ public class GamePanel extends JPanel implements MouseListener {
     public void mousePressed(MouseEvent e) {
         int mouseX = e.getX();
         int mouseY = e.getY();
-        //System.out.println("Mouse X: " + mouseX + " Mouse Y: " + mouseY);
+        // System.out.println("Mouse X: " + mouseX + " Mouse Y: " + mouseY);
 
         int panelWidth = getWidth();
         int panelHeight = getHeight();
@@ -156,11 +175,12 @@ public class GamePanel extends JPanel implements MouseListener {
     public void gameOver() {
         // display ending messages
         if (stepCounter == minimumSteps)
-            MainFrame.statusPanel.mainOutput.setText("<html>You won using the least amount of steps possible!<br>That's only "
-                    + minimumSteps + " steps! </html>");
+            MainFrame.statusPanel.mainOutput
+                    .setText("<html>You won using the least amount of steps possible!<br>That's only " + minimumSteps
+                            + " steps! </html>");
         else {
-            MainFrame.statusPanel.mainOutput.setText("<html>You won by only taking " + stepCounter + " steps!<br>That's only "
-                    + (stepCounter - minimumSteps) + " extra steps! </html>");
+            MainFrame.statusPanel.mainOutput.setText("<html>You won by only taking " + stepCounter
+                    + " steps!<br>That's only " + (stepCounter - minimumSteps) + " extra steps! </html>");
             // System.out.println("You Win!");
             // System.out.println("You took: " + stepCounter + " steps");
 
@@ -196,10 +216,10 @@ public class GamePanel extends JPanel implements MouseListener {
     }
 
     // public int getStepCounter(){
-    //     return this.stepCounter;
+    // return this.stepCounter;
     // }
 
     // public void setStepCounter(int stepCounter){
-    //     this.stepCounter = stepCounter;
+    // this.stepCounter = stepCounter;
     // }
 }

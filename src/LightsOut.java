@@ -13,11 +13,6 @@ public class LightsOut {
     static int startingTile = gridSize * gridSize / 2;
     // To display information that's bad for the gameplay but good for debugging
     static boolean debugMode = true;
- 
-    static int randomRange(int min, int max) {
-        int range = (max - min) + 1;
-        return (int) (Math.random() * range) + min;
-    }
 
     public static void main(String[] args) {
 
