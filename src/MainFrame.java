@@ -13,6 +13,7 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(400, 600));
 
         panel = new GamePanel();
         add(panel, BorderLayout.CENTER);

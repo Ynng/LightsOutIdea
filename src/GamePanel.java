@@ -69,8 +69,8 @@ public class GamePanel extends JPanel implements MouseListener {
 
     public GamePanel() {
         setPreferredSize(new Dimension(LightsOut.gridSize*LightsOut.tileSize, LightsOut.gridSize*LightsOut.tileSize));
-        setBackground(Color.PINK);
 
+        setBackground(Color.PINK);
         // initialize the two arrays
         lights = new boolean[LightsOut.gridSize][LightsOut.gridSize];
         lightsClicked = new boolean[LightsOut.gridSize][LightsOut.gridSize];
