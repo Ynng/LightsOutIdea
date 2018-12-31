@@ -14,7 +14,7 @@ public class LightsOut {
     // To display information that's bad for the gameplay but good for debugging
     static boolean debugMode = true;
 
-    static private MainFrame frame;
+    public static MainFrame frame = null;
 
 
     public static void main(String[] args) {
@@ -22,9 +22,8 @@ public class LightsOut {
     }
 
     public static void newGame(){
+        if(frame!=null)frame.dispose();
         getGridSize();
-
-
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -56,5 +55,6 @@ public class LightsOut {
         }
         frame.dispose();
     }
+
 
 }

@@ -22,10 +22,11 @@ public class MainFrame extends JFrame {
         panel = new GamePanel();
         add(panel, BorderLayout.CENTER);
         setVisible(true);
+        pack();
 
         // setSize(LightsOut.tileSize * LightsOut.gridSize, LightsOut.tileSize *
         // LightsOut.gridSize);
-        pack();
+//        pack();
     }
 
 }

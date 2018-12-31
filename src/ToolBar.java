@@ -5,8 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 public class ToolBar extends JPanel {
     static int gameDimension = LightsOut.tileSize * LightsOut.gridSize;
-    public ToolBarButton newGameButton;
-    public ToolBarButton toggleDebugButton;
+    public static ToolBarButton newGameButton;
+    public static ToolBarButton toggleDebugButton;
+//    public static ToolBarButton solveButton;
     public ToolBar() {
 //        setPreferredSize(new Dimension(gameDimension, LightsOut.tileSize/2));
         setBackground(Color.WHITE);
@@ -16,8 +17,7 @@ public class ToolBar extends JPanel {
         newGameButton.setAction(new AbstractAction("New Game"){
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainFrame.panel.initialize();
-                MainFrame.panel.repaint();
+                LightsOut.newGame();
             }
         });
         add(newGameButton);
@@ -30,6 +30,26 @@ public class ToolBar extends JPanel {
             }
         });
         add(toggleDebugButton);
+
+//        solveButton = new ToolBarButton();
+//        solveButton.setEnabled(false);
+//
+//        solveButton.setText("Solving......");
+//        solveButton.setAction(new AbstractAction("Solve It For Me") {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                    solveButton.setEnabled(false);
+//                    MainFrame.panel.solve(true);
+//                solveButton.setText("Solving......");
+//                System.out.println("Trying to solve the game");
+//            }
+//        });
+//        add(solveButton);
     }
+
+//    public static void enableSolveButton(){
+//        solveButton.setEnabled(true);
+//        solveButton.setText("Solve It For Me");
+//    }
 
 }
