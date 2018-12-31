@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements MouseListener {
             lightsClicked[row][col] = !lightsClicked[row][col];
             toggle(lights, row, col);
             // System.out.println((row + 1) + " " + (col + 1) + "\n");
-            if (countBools(lightsClicked) == LightsOut.startingTile)
+            if (countBools(lights) == (LightsOut.gridSize * LightsOut.gridSize) / 2)
                 break;
         }
         // Prints the answer to the random generated level
@@ -187,35 +187,11 @@ public class GamePanel extends JPanel implements MouseListener {
 
         lightsClicked[row][col] = !lightsClicked[row][col];
         MainFrame.statusPanel.setStep(stepCounter);
-        if (0 == countBools(lights)) {
-            gameOver();
-        }
         repaint();
-    }
-
-    public void gameOver() {
-        // display ending messages
-        // if (stepCounter == minimumSteps)
-        // MainFrame.statusPanel.mainOutput
-        // .setText("<html>You won using the least amount of steps possible!<br>That's
-        // only " + minimumSteps
-        // + " steps! </html>");
-        // else {
-        // MainFrame.statusPanel.mainOutput.setText("<html>You won by only taking " +
-        // stepCounter
-        // + " steps!<br>That's only " + (stepCounter - minimumSteps) + " extra steps!
-        // </html>");
-        // System.out.println("You Win!");
-        // System.out.println("You took: " + stepCounter + " steps");
-
-        // System.out.println("You took: " + (stepCounter - minimumSteps) + );
-        // }
-
-        System.out.print('\n');
-        System.out.println("Restarting Game");
-        initialize();
-        // displaySolution();
-        // System.exit(0);
+        if (0 == countBools(lights)) {
+//            gameOver();
+            LightsOut.gameOver();
+        }
     }
 
     // Useless junk

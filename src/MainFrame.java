@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
         setLayout(new BorderLayout());
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(400, 600));
+        setMinimumSize(new Dimension(300, 400));
 
         toolbar = new ToolBar();
         add(toolbar, BorderLayout.PAGE_START);
