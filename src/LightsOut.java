@@ -23,6 +23,8 @@ public class LightsOut {
 
     public static void newGame(){
         getGridSize();
+
+
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -35,14 +37,13 @@ public class LightsOut {
         String gridInput = null;
         try {
             gridInput = JOptionPane.showInputDialog("Enter the size of grid you want to play on (default is "+gridSize+")");
-            gridSize = Integer.parseInt(gridInput);
-        } catch (NumberFormatException e) {
-            if (gridInput == null) {
-                JOptionPane.showMessageDialog(null, "No Input is detected, the default value "+gridSize+" is used");
-            } else {
-                JOptionPane.showMessageDialog(null, "Please enter one integer");
+            if(Integer.parseInt(gridInput)<2){
+                JOptionPane.showMessageDialog(null, "Please enter a number larger than 1");
                 getGridSize();
             }
+            else gridSize = Integer.parseInt(gridInput);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "No Input/Invalid Input is detected, the default value "+gridSize+" is used");
         }
     }
 
