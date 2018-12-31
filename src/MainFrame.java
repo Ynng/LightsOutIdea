@@ -15,12 +15,12 @@ public class MainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(400, 600));
 
-        panel = new GamePanel();
-        add(panel, BorderLayout.CENTER);
         toolbar = new ToolBar();
         add(toolbar, BorderLayout.PAGE_START);
         statusPanel = new StatusPanel();
         add(statusPanel, BorderLayout.PAGE_END);
+        panel = new GamePanel();
+        add(panel, BorderLayout.CENTER);
         setVisible(true);
 
         // setSize(LightsOut.tileSize * LightsOut.gridSize, LightsOut.tileSize *

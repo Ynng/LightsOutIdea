@@ -5,19 +5,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 public class ToolBar extends JPanel {
     static int gameDimension = LightsOut.tileSize * LightsOut.gridSize;
-    public JButton newGameButton;
+    public ToolBarButton newGameButton;
+    public ToolBarButton toggleDebugButton;
     public ToolBar() {
-        setPreferredSize(new Dimension(gameDimension, LightsOut.tileSize/2));
+//        setPreferredSize(new Dimension(gameDimension, LightsOut.tileSize/2));
         setBackground(Color.WHITE);
-        setLayout(new BorderLayout());
+        setLayout(new FlowLayout(FlowLayout.LEFT, 5, 0));
         //Setting up the new game button
-        newGameButton = new JButton();
-        newGameButton.setBackground(new Color(59, 89, 182));
-        newGameButton.setForeground(Color.WHITE);
-        newGameButton.setFocusPainted(false);
-        newGameButton.setFont(new Font("Sans-Serif", Font.PLAIN, 16));
-        newGameButton.setPreferredSize(new Dimension(LightsOut.tileSize, LightsOut.tileSize/2));
-        newGameButton.setMargin(new Insets(0, 0, 0, 0));
+        newGameButton = new ToolBarButton();
         newGameButton.setAction(new AbstractAction("New Game"){
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -25,7 +20,16 @@ public class ToolBar extends JPanel {
                 MainFrame.panel.repaint();
             }
         });
-        add(newGameButton, BorderLayout.WEST);
+        add(newGameButton);
+        toggleDebugButton = new ToolBarButton();
+        toggleDebugButton.setAction(new AbstractAction("Toggle Debug"){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LightsOut.debugMode=!LightsOut.debugMode;
+                MainFrame.panel.repaint();
+            }
+        });
+        add(toggleDebugButton);
     }
 
 }

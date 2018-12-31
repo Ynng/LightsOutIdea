@@ -17,9 +17,11 @@ public class GamePanel extends JPanel implements MouseListener {
         return (int) (Math.random() * range) + min;
     }
 
-    public static int smaller(int a, int b){
-        if (a>b) return b;
-        else return a;
+    public static int smaller(int a, int b) {
+        if (a > b)
+            return b;
+        else
+            return a;
     }
 
     public static void printBools(boolean[][] input) {
@@ -35,7 +37,7 @@ public class GamePanel extends JPanel implements MouseListener {
         int count = 0;
         for (boolean[] list : input) {
             for (boolean item : list) {
-                    if (item) {
+                if (item) {
                     count++;
                 }
             }
@@ -65,10 +67,9 @@ public class GamePanel extends JPanel implements MouseListener {
 
     }
 
-    
-
     public GamePanel() {
-        setPreferredSize(new Dimension(LightsOut.gridSize*LightsOut.tileSize, LightsOut.gridSize*LightsOut.tileSize));
+        setPreferredSize(
+                new Dimension(LightsOut.gridSize * LightsOut.tileSize, LightsOut.gridSize * LightsOut.tileSize));
 
         setBackground(Color.PINK);
         // initialize the two arrays
@@ -84,9 +85,7 @@ public class GamePanel extends JPanel implements MouseListener {
         stepCounter = 0;
         minimumSteps = 0;
 
-
-
-        //Clearing the List for better 
+        // Clearing the List for better
         for (boolean[] list : lights) {
             for (boolean item : list) {
                 item = false;
@@ -109,6 +108,7 @@ public class GamePanel extends JPanel implements MouseListener {
         // Prints the answer to the random generated level
         printBools(lightsClicked);
         minimumSteps = countBools(lightsClicked);
+        MainFrame.statusPanel.setMinSteps(minimumSteps);
         // System.out.println("It will take at least: " + minimumSteps + " steps to
         // complete");
         // MainFrame.statusPanel.mainOutput.setText("This game will take you at least "
@@ -120,23 +120,25 @@ public class GamePanel extends JPanel implements MouseListener {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        int panelSize = smaller(getWidth(),getHeight());
-        int tileSize = panelSize/LightsOut.gridSize;
+        int panelSize = smaller(getWidth(), getHeight());
+        int tileSize = panelSize / LightsOut.gridSize;
 
-        int y = (getHeight()-panelSize)/2 + LightsOut.tileMargin / 2;
+        int y = (getHeight() - panelSize) / 2 + LightsOut.tileMargin / 2;
         for (int row = 0; row < LightsOut.gridSize; row++) {
-            int x = (getWidth()-panelSize)/2 + LightsOut.tileMargin / 2;
+            int x = (getWidth() - panelSize) / 2 + LightsOut.tileMargin / 2;
             for (int col = 0; col < LightsOut.gridSize; col++) {
                 if (lightsClicked[row][col] && LightsOut.debugMode) {
                     // drawing the border
                     g2.setColor(Color.GREEN);
-                    g2.fillRect(x, y, tileSize - LightsOut.tileMargin,tileSize - LightsOut.tileMargin);
+                    g2.fillRect(x, y, tileSize - LightsOut.tileMargin, tileSize - LightsOut.tileMargin);
                     // drawing the actuall tile
                     if (lights[row][col])
                         g2.setColor(Color.WHITE);
                     else
                         g2.setColor(Color.BLACK);
-                    g2.fillRect(x + LightsOut.tileBorder, y + LightsOut.tileBorder, tileSize - LightsOut.tileMargin - LightsOut.tileBorder * 2,tileSize - LightsOut.tileMargin - LightsOut.tileBorder * 2);
+                    g2.fillRect(x + LightsOut.tileBorder, y + LightsOut.tileBorder,
+                            tileSize - LightsOut.tileMargin - LightsOut.tileBorder * 2,
+                            tileSize - LightsOut.tileMargin - LightsOut.tileBorder * 2);
 
                 } else {
                     // drawing the actuall tiles
@@ -144,7 +146,7 @@ public class GamePanel extends JPanel implements MouseListener {
                         g2.setColor(Color.WHITE);
                     else
                         g2.setColor(Color.BLACK);
-                    g2.fillRect(x, y, tileSize - LightsOut.tileMargin,tileSize - LightsOut.tileMargin);
+                    g2.fillRect(x, y, tileSize - LightsOut.tileMargin, tileSize - LightsOut.tileMargin);
                     // drawing the border of the tiles
                 }
                 x += tileSize;
@@ -158,24 +160,25 @@ public class GamePanel extends JPanel implements MouseListener {
         int mouseX = e.getX();
         int mouseY = e.getY();
         // System.out.println("Mouse X: " + mouseX + " Mouse Y: " + mouseY);
-        int panelSize = smaller(getWidth(),getHeight());
-        int tileSize = panelSize/LightsOut.gridSize;
-        //filter out invalid clicks
-        if(mouseX<((getWidth()-panelSize)/2)||mouseX>((getWidth()-panelSize)/2+panelSize)||mouseY<((getHeight()-panelSize)/2)||mouseY>((getHeight()-panelSize)/2+panelSize)){
+        int panelSize = smaller(getWidth(), getHeight());
+        int tileSize = panelSize / LightsOut.gridSize;
+        // filter out invalid clicks
+        if (mouseX < ((getWidth() - panelSize) / 2) || mouseX > ((getWidth() - panelSize) / 2 + panelSize)
+                || mouseY < ((getHeight() - panelSize) / 2) || mouseY > ((getHeight() - panelSize) / 2 + panelSize)) {
             return;
         }
-        mouseX -= (getWidth()-panelSize)/2;
-        mouseY -= (getHeight()-panelSize)/2;
+        mouseX -= (getWidth() - panelSize) / 2;
+        mouseY -= (getHeight() - panelSize) / 2;
 
         int col = mouseX / tileSize;
         int row = mouseY / tileSize;
 
-        if(col>LightsOut.gridSize-1){
-            col=LightsOut.gridSize-1;
+        if (col > LightsOut.gridSize - 1) {
+            col = LightsOut.gridSize - 1;
             System.out.println("col out of bound");
         }
-        if(row>LightsOut.gridSize-1){
-            row=LightsOut.gridSize-1;
+        if (row > LightsOut.gridSize - 1) {
+            row = LightsOut.gridSize - 1;
             System.out.println("row out of bound");
         }
 
@@ -183,30 +186,30 @@ public class GamePanel extends JPanel implements MouseListener {
         toggle(lights, row, col);
 
         lightsClicked[row][col] = !lightsClicked[row][col];
-
+        MainFrame.statusPanel.setStep(stepCounter);
         if (0 == countBools(lights)) {
             gameOver();
-        } else {
-            MainFrame.statusPanel.mainOutput.setText("<html>You already took " + stepCounter
-                    + " Steps<br> It's possible to finish this game in only " + minimumSteps + " steps! </html>");
         }
         repaint();
     }
 
     public void gameOver() {
         // display ending messages
-        if (stepCounter == minimumSteps)
-            MainFrame.statusPanel.mainOutput
-                    .setText("<html>You won using the least amount of steps possible!<br>That's only " + minimumSteps
-                            + " steps! </html>");
-        else {
-            MainFrame.statusPanel.mainOutput.setText("<html>You won by only taking " + stepCounter
-                    + " steps!<br>That's only " + (stepCounter - minimumSteps) + " extra steps! </html>");
-            // System.out.println("You Win!");
-            // System.out.println("You took: " + stepCounter + " steps");
+        // if (stepCounter == minimumSteps)
+        // MainFrame.statusPanel.mainOutput
+        // .setText("<html>You won using the least amount of steps possible!<br>That's
+        // only " + minimumSteps
+        // + " steps! </html>");
+        // else {
+        // MainFrame.statusPanel.mainOutput.setText("<html>You won by only taking " +
+        // stepCounter
+        // + " steps!<br>That's only " + (stepCounter - minimumSteps) + " extra steps!
+        // </html>");
+        // System.out.println("You Win!");
+        // System.out.println("You took: " + stepCounter + " steps");
 
-            // System.out.println("You took: " + (stepCounter - minimumSteps) + );
-        }
+        // System.out.println("You took: " + (stepCounter - minimumSteps) + );
+        // }
 
         System.out.print('\n');
         System.out.println("Restarting Game");
