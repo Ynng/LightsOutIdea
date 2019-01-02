@@ -5,7 +5,6 @@ import java.awt.*;
 public class MainFrame extends JFrame {
 
     public static GamePanel panel;
-    public static MessageLabel message;
     public static StatusPanel statusPanel;
     public static ToolBar toolbar;
 
@@ -20,24 +19,11 @@ public class MainFrame extends JFrame {
         add(toolbar, BorderLayout.PAGE_START);
         statusPanel = new StatusPanel();
         add(statusPanel, BorderLayout.PAGE_END);
-        message = new MessageLabel(); 
-        add(message, BorderLayout.CENTER);
         panel = new GamePanel();
+        add(panel, BorderLayout.CENTER);
         setVisible(true);
         pack();
-
-        // setSize(LightsOut.tileSize * LightsOut.gridSize, LightsOut.tileSize *
-        // LightsOut.gridSize);
-//        pack();
     }
 
-    public void startGame(){
-//        panel.repaint();
-        add(panel, BorderLayout.CENTER);
-        message.setVisible(false);
-        panel.setVisible(true);
-        pack();
-
-    }
 
 }

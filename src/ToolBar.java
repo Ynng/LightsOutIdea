@@ -6,8 +6,7 @@ import java.awt.event.ActionEvent;
 public class ToolBar extends JPanel {
     static int gameDimension = LightsOut.tileSize * LightsOut.gridSize;
     public static ToolBarButton newGameButton;
-    public static ToolBarButton toggleDebugButton;
-//    public static ToolBarButton solveButton;
+    public static ToolBarButton solveButton;
     public ToolBar() {
 //        setPreferredSize(new Dimension(gameDimension, LightsOut.tileSize/2));
         setBackground(Color.WHITE);
@@ -21,15 +20,16 @@ public class ToolBar extends JPanel {
             }
         });
         add(newGameButton);
-        toggleDebugButton = new ToolBarButton();
-        toggleDebugButton.setAction(new AbstractAction("Toggle Debug"){
+        solveButton = new ToolBarButton();
+        solveButton.setAction(new AbstractAction("Solve it For Me"){
             @Override
             public void actionPerformed(ActionEvent e) {
-                LightsOut.debugMode=!LightsOut.debugMode;
-                MainFrame.panel.repaint();
-            }
+                solveButton.setEnabled(false);
+                solveButton.setText("Solved, solution shown");
+                MainFrame.panel.solve(true);
+        }
         });
-        add(toggleDebugButton);
+        add(solveButton);
 
 //        solveButton = new ToolBarButton();
 //        solveButton.setEnabled(false);

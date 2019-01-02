@@ -9,26 +9,27 @@ import java.util.concurrent.TimeUnit;
 public class GamePanel extends JPanel implements MouseListener {
 
     // 2d arrays for storing the light states
-    public boolean[][] lights;
-    public boolean[][] lightsClicked;
+    private boolean[][] lights;
+    private boolean[][] lightsClicked;
     // step counter to record the number of steps the user have taken
     private int stepCounter;
     private int minimumSteps;
-    public static boolean initializing = false;
+    private boolean solving = false;
+    private boolean showSolution = false;
 
     static int randomRange(int min, int max) {
         int range = (max - min) + 1;
         return (int) (Math.random() * range) + min;
     }
 
-    public static int smaller(int a, int b) {
+    static int smaller(int a, int b) {
         if (a > b)
             return b;
         else
             return a;
     }
 
-    public static void printBools(boolean[][] input) {
+    static void printBools(boolean[][] input) {
         for (boolean[] list : input) {
             for (boolean light : list) {
                 System.out.print((light ? "1" : "0") + " ");
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel implements MouseListener {
         }
     }
 
-    public static int countBools(boolean[][] input) {
+    static int countBools(boolean[][] input) {
         int count = 0;
         for (boolean[] list : input) {
             for (boolean item : list) {
@@ -49,7 +50,15 @@ public class GamePanel extends JPanel implements MouseListener {
         return count;
     }
 
-    public static void toggle(boolean[][] input, int row, int col) {
+    static void copyBools(boolean[][] source, boolean[][]target){
+        for (int i = 0; i < LightsOut.gridSize; i++) {
+            for (int j = 0; j < LightsOut.gridSize; j++) {
+                target[i][j] = source[i][j];
+            }
+        }
+    }
+
+    static void toggle(boolean[][] input, int row, int col) {
 
         input[row][col] = !input[row][col];
         if (row - 1 >= 0) {
@@ -86,7 +95,6 @@ public class GamePanel extends JPanel implements MouseListener {
 
     public void initialize() {
 
-        initializing = true;
         stepCounter = 0;
         minimumSteps = 0;
 
@@ -102,15 +110,15 @@ public class GamePanel extends JPanel implements MouseListener {
             }
         }
         // randomly turn on half of the lights
-        for(int i = 0; i<((LightsOut.gridSize * LightsOut.gridSize) / 2); i++){
-//        while (true) {
+        for (int i = 0; i < ((LightsOut.gridSize * LightsOut.gridSize) / 2); i++) {
+            // while (true) {
             int row = randomRange(0, LightsOut.gridSize - 1);
             int col = randomRange(0, LightsOut.gridSize - 1);
             lightsClicked[row][col] = !lightsClicked[row][col];
             toggle(lights, row, col);
             // System.out.println((row + 1) + " " + (col + 1) + "\n");
-//            if (countBools(lights) == (LightsOut.gridSize * LightsOut.gridSize) / 2)
-//                break;
+            // if (countBools(lights) == (LightsOut.gridSize * LightsOut.gridSize) / 2)
+            // break;
         }
         // Prints the answer to the random generated level
         printBools(lightsClicked);
@@ -120,79 +128,68 @@ public class GamePanel extends JPanel implements MouseListener {
 
     }
 
-    public void solve(boolean visible) {
-
-
-
-        System.out.println("Starting solving");
-            Thread t=new Thread(new Runnable(){
-                boolean[][] solveClicked = new boolean[LightsOut.gridSize][LightsOut.gridSize];
-                boolean[][] solveLights = new boolean[LightsOut.gridSize][LightsOut.gridSize];
-
-
-                @Override
-
-                public void run() {
-                    //Copying lights to solveLights
-                    for (int i = 0; i<LightsOut.gridSize; i++) {
-                        for (int j = 0; j<LightsOut.gridSize; j++) {
-                            solveLights[i][j] = lights[i][j];
-                        }
-                    }
-                    for(int i = 0; i<Math.pow(2,LightsOut.gridSize);i++){
-                        for(int j = 0; j<LightsOut.gridSize;j++){
-                            if(i%Math.pow(2,j)==0){
-                                if(visible)improveVisibility();
-                                System.out.println("Toggling: 0 "+ j);
-                                toggle(solveLights,0, j);
-                                solveClicked[0][j] = !solveClicked[0][j];
-                                if(visible)repaint();
-                            }
-                        }
-                        for(int j=1;j<LightsOut.gridSize;j++){
-                            for(int k=0; k<LightsOut.gridSize;k++){
-                                if(lights[j-1][k]){
-                                    if(visible)improveVisibility();
-                                    System.out.println("Toggling: "+ j + " "+ k);
-                                    toggle(solveLights,j,k);
-                                    solveClicked[j][k] = !solveClicked[j][k];
-                                    if(visible)repaint();
-                                }
-
-                            }
-                            if (0 == countBools(solveLights)) {
-                                    System.out.println("Found a solution");
-                                int temp = countBools(solveClicked);
-                                if(minimumSteps>temp){
-                                    minimumSteps=temp;
-                                    for (int x = 0; x<LightsOut.gridSize; x++) {
-                                        for (int y = 0; y<LightsOut.gridSize; y++) {
-                                            lightsClicked[x][y] = solveClicked[x][y];
-                                        }
-                                    }
-                                    System.out.println("Found a better solution than the original");
-                                    repaint();
-                                }
-                            }
-                        }
-                    }
-//                    JOptionPane.showMessageDialog(null, "Finished Initializing");
-                    System.out.println("Finished Solving");
-                    initializing = false;
-                    //TODO:FIX THIS
-                    LightsOut.frame.startGame();
-                }
-            });
-            t.start();
-
-    }
-
-    private void improveVisibility(){
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public void solve(boolean user) {
+        if(user){
+            if (JOptionPane.showConfirmDialog(null, "This will invalid your score\nAre you sure you want to let a computer solve it for you?", "Lights Out",
+                    JOptionPane.YES_NO_OPTION) != 0) {
+                return;
+            }
         }
+        solving = true;
+        System.out.println("Starting solving");
+        Thread t = new Thread(new Runnable() {
+            boolean[][] solveClicked = new boolean[LightsOut.gridSize][LightsOut.gridSize];
+            boolean[][] solveLights = new boolean[LightsOut.gridSize][LightsOut.gridSize];
+
+            @Override
+
+            public void run() {
+                // Copying lights to solveLights
+                copyBools(lights, solveLights);
+                // Cycle through every combination of the first row
+                for (int i = 0; i < Math.pow(2, LightsOut.gridSize); i++) {
+                    // Toggle the first row accordingly
+                    for (int j = 0; j < LightsOut.gridSize; j++) {
+                        if (i % Math.pow(2, j) == 0) {
+                            System.out.println("Toggling: 0 " + j);
+                            toggle(solveLights, 0, j);
+                            solveClicked[0][j] = !solveClicked[0][j];
+                        }
+                    }
+                    // Toggling the rest of the rows accordingly
+                    for (int j = 1; j < LightsOut.gridSize; j++) {
+                        for (int k = 0; k < LightsOut.gridSize; k++) {
+                            if (lights[j - 1][k]) {
+                                System.out.println("Toggling: " + j + " " + k);
+                                toggle(solveLights, j, k);
+                                solveClicked[j][k] = !solveClicked[j][k];
+                            }
+
+                        }
+                        if (0 == countBools(solveLights)) {
+                            System.out.println("Found a solution");
+                            int temp = countBools(solveClicked);
+                            if (minimumSteps > temp) {
+                                System.out.println("Found a better solution than the original");
+                                minimumSteps = temp;
+                                // Copying the better solution to lightsclicked
+                                copyBools(solveClicked,solveLights);
+                            }
+                        }
+                    }
+                }
+
+                System.out.println("Finished Solving");
+                solving = false;
+                if(user){
+                    showSolution=true;
+                    repaint();
+                    JOptionPane.showMessageDialog(null, "Finished Solving");
+                }else repaint();
+            }
+        });
+        t.start();
+
     }
 
     @Override
@@ -207,11 +204,11 @@ public class GamePanel extends JPanel implements MouseListener {
         for (int row = 0; row < LightsOut.gridSize; row++) {
             int x = (getWidth() - panelSize) / 2 + LightsOut.tileMargin / 2;
             for (int col = 0; col < LightsOut.gridSize; col++) {
-                if (lightsClicked[row][col] && LightsOut.debugMode) {
+                if (lightsClicked[row][col] && showSolution) {
                     // drawing the border
                     g2.setColor(Color.GREEN);
                     g2.fillRect(x, y, tileSize - LightsOut.tileMargin, tileSize - LightsOut.tileMargin);
-                    // drawing the actuall tile
+                    // drawing the actual tile
                     if (lights[row][col])
                         g2.setColor(Color.WHITE);
                     else
@@ -221,7 +218,7 @@ public class GamePanel extends JPanel implements MouseListener {
                             tileSize - LightsOut.tileMargin - LightsOut.tileBorder * 2);
 
                 } else {
-                    // drawing the actuall tiles
+                    // drawing the actual tiles
                     if (lights[row][col])
                         g2.setColor(Color.WHITE);
                     else
@@ -237,8 +234,8 @@ public class GamePanel extends JPanel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(initializing){
-            JOptionPane.showMessageDialog(null, "Initializing.....");
+        if (solving) {
+            JOptionPane.showMessageDialog(null, "In the process of solving");
             return;
         }
         int mouseX = e.getX();
@@ -273,7 +270,7 @@ public class GamePanel extends JPanel implements MouseListener {
         MainFrame.statusPanel.setStep(stepCounter);
         repaint();
         if (0 == countBools(lights)) {
-//            gameOver();
+            // gameOver();
             LightsOut.gameOver();
         }
     }

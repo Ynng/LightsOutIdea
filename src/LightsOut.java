@@ -11,8 +11,6 @@ public class LightsOut {
     static int tileBorder = 5;
     // the number of tiles turned on at the start
     // static int startingTile = (gridSize * gridSize) / 2;
-    // To display information that's bad for the gameplay but good for debugging
-    static boolean debugMode = true;
 
     public static MainFrame frame = null;
 
@@ -21,8 +19,8 @@ public class LightsOut {
     }
 
     public static void newGame(){
-        if(frame!=null)frame.dispose();
         getGridSize();
+        if(frame!=null)frame.dispose();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
