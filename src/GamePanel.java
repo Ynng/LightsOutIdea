@@ -1,10 +1,8 @@
-import com.sun.tools.javac.Main;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.concurrent.TimeUnit;
 
 public class GamePanel extends JPanel implements MouseListener {
 
