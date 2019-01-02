@@ -16,7 +16,6 @@ public class LightsOut {
 
     public static MainFrame frame = null;
 
-
     public static void main(String[] args) {
         newGame();
     }

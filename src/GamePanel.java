@@ -176,9 +176,11 @@ public class GamePanel extends JPanel implements MouseListener {
                             }
                         }
                     }
-                    JOptionPane.showMessageDialog(null, "Finished Initializing");
+//                    JOptionPane.showMessageDialog(null, "Finished Initializing");
                     System.out.println("Finished Solving");
                     initializing = false;
+                    //TODO:FIX THIS
+                    LightsOut.frame.startGame();
                 }
             });
             t.start();
