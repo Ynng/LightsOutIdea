@@ -88,7 +88,6 @@ public class GamePanel extends JPanel implements MouseListener {
         lightsClicked = new boolean[LightsOut.gridSize][LightsOut.gridSize];
         addMouseListener(this);
         initialize();
-
     }
 
     public void initialize() {
@@ -127,12 +126,7 @@ public class GamePanel extends JPanel implements MouseListener {
     }
 
     public void solve(boolean user) {
-        if(user){
-            if (JOptionPane.showConfirmDialog(null, "This will invalid your score\nAre you sure you want to let a computer solve it for you?", "Lights Out",
-                    JOptionPane.YES_NO_OPTION) != 0) {
-                return;
-            }
-        }
+        
         solving = true;
         System.out.println("Starting solving");
         Thread t = new Thread(new Runnable() {
@@ -183,7 +177,7 @@ public class GamePanel extends JPanel implements MouseListener {
                     showSolution=true;
                     repaint();
                     JOptionPane.showMessageDialog(null, "Finished Solving");
-                }else repaint();
+                }
             }
         });
         t.start();
