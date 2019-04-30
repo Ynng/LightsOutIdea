@@ -1,4 +1,6 @@
 # LightsOutIdea
+[![CodeFactor](https://www.codefactor.io/repository/github/ynng/lightsout/badge)](https://www.codefactor.io/repository/github/ynng/lightsout)
+
 Made for a school project.
 
 Infos on the game: https://en.wikipedia.org/wiki/Lights_Out_(game)
