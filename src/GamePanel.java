@@ -7,13 +7,13 @@ import java.awt.event.MouseListener;
 public class GamePanel extends JPanel implements MouseListener {
 
     // 2d arrays for storing the light states
-    private boolean[][] lights;
+    private boolean[][] lights = {{false,true,false,false,true,true},{false,false,true,true,false,false},{false,true,true,true,false,true},{true,false,true,true,true,true},{false,true,true,false,false,false},{false,false,false,true,false,false}};
     private boolean[][] lightsClicked;
     // step counter to record the number of steps the user have taken
     private int stepCounter;
     private int minimumSteps;
     private boolean solving = false;
-    private boolean showSolution = false;
+    private boolean showSolution = true;
 
     static int randomRange(int min, int max) {
         int range = (max - min) + 1;
@@ -84,7 +84,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
         setBackground(Color.PINK);
         // initialize the two arrays
-        lights = new boolean[LightsOut.gridSize][LightsOut.gridSize];
+        //lights = new boolean[LightsOut.gridSize][LightsOut.gridSize];
         lightsClicked = new boolean[LightsOut.gridSize][LightsOut.gridSize];
         addMouseListener(this);
         initialize();
@@ -96,29 +96,29 @@ public class GamePanel extends JPanel implements MouseListener {
         minimumSteps = 0;
 
         // Clearing the List for better
-        for (boolean[] list : lights) {
+        /*for (boolean[] list : lights) {
             for (boolean item : list) {
                 item = false;
             }
-        }
+        }*/
         for (boolean[] list : lightsClicked) {
             for (boolean item : list) {
                 item = false;
             }
         }
         // randomly turn on half of the lights
-        for (int i = 0; i < ((LightsOut.gridSize * LightsOut.gridSize) / 2); i++) {
+        /*for (int i = 0; i < ((LightsOut.gridSize * LightsOut.gridSize) / 2); i++) {
             // while (true) {
             int row = randomRange(0, LightsOut.gridSize - 1);
             int col = randomRange(0, LightsOut.gridSize - 1);
-            lightsClicked[row][col] = !lightsClicked[row][col];
+            //lightsClicked[row][col] = !lightsClicked[row][col];
             toggle(lights, row, col);
             // System.out.println((row + 1) + " " + (col + 1) + "\n");
             // if (countBools(lights) == (LightsOut.gridSize * LightsOut.gridSize) / 2)
             // break;
-        }
+        }*/
         // Prints the answer to the random generated level
-        printBools(lightsClicked);
+        printBools(lights);
         minimumSteps = countBools(lightsClicked);
         solve(false);
         MainFrame.statusPanel.setMinSteps(minimumSteps);
@@ -143,7 +143,7 @@ public class GamePanel extends JPanel implements MouseListener {
                     // Toggle the first row accordingly
                     for (int j = 0; j < LightsOut.gridSize; j++) {
                         if (i % Math.pow(2, j) == 0) {
-                            System.out.println("Toggling: 0 " + j);
+                            //System.out.println("Toggling: 0 " + j);
                             toggle(solveLights, 0, j);
                             solveClicked[0][j] = !solveClicked[0][j];
                         }
@@ -151,8 +151,8 @@ public class GamePanel extends JPanel implements MouseListener {
                     // Toggling the rest of the rows accordingly
                     for (int j = 1; j < LightsOut.gridSize; j++) {
                         for (int k = 0; k < LightsOut.gridSize; k++) {
-                            if (lights[j - 1][k]) {
-                                System.out.println("Toggling: " + j + " " + k);
+                            if (solveLights[j - 1][k]) {
+                                //System.out.println("Toggling: " + j + " " + k);
                                 toggle(solveLights, j, k);
                                 solveClicked[j][k] = !solveClicked[j][k];
                             }
@@ -161,12 +161,12 @@ public class GamePanel extends JPanel implements MouseListener {
                         if (0 == countBools(solveLights)) {
                             System.out.println("Found a solution");
                             int temp = countBools(solveClicked);
-                            if (minimumSteps > temp) {
+                            //if (minimumSteps > temp) {
                                 System.out.println("Found a better solution than the original");
                                 minimumSteps = temp;
                                 // Copying the better solution to lightsclicked
-                                copyBools(solveClicked,solveLights);
-                            }
+                                copyBools(solveClicked,lightsClicked);
+                            //}
                         }
                     }
                 }
