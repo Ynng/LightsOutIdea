@@ -8,6 +8,12 @@
             "type": "java",
             "name": "CodeLens (Launch) - LightsOut",
             "request": "launch",
+            "mainClass": "LightsOut"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - LightsOut",
+            "request": "launch",
             "mainClass": "LightsOut",
             "projectName": "LightsOutIdea_14f96c49"
         },
